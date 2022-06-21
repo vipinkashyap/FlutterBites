@@ -28,11 +28,11 @@ class PostsBloc extends Bloc<PostsEvent, PostsState> {
 
   void _onDeletePost(DeletePost event, emit) async {
     emit(PostsLoading());
-    var isDeleteDone =
+    bool isDeleteDone =
         await postsRepository.deletePost(id: event.selectedPost.id);
 
-    var updatedPosts = event.existingPosts
-        .where((element) => element.id != event.selectedPost.id)
+    List<Post> updatedPosts = event.existingPosts
+        .where((post) => post.id != event.selectedPost.id)
         .toList();
     emit(PostDeleted());
     isDeleteDone
